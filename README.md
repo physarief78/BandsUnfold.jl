@@ -2,7 +2,7 @@
 
 **Repository:** Unfolding technique implemented with [DFTK.jl](https://github.com/physarief78/BandsUnfold.jl)
 
-**Author:** (physarief78)
+**Author:** @physarief78
 
 **Summary**
 
@@ -19,7 +19,7 @@ Included example results (place these images in `figures/` in the repo):
 ## 1. DFTK Workflow (high level)
 
 1. **Build primitive and supercell models** — define lattice, atomic positions, pseudopotentials, create `model_DFT` for both primitive cell and supercell geometry.
-2. **SCF on supercell** — run `self_consistent_field` on the supercell to obtain the converged density ($\rho_{SC}$) and Fermi energy ($\varepsilon_F$). Immediately save only the density and Fermi energy to disk and drop the wavefunction-heavy objects from memory.
+2. **SCF on supercell** — run `self_consistent_field` on the supercell to obtain the converged density $\rho_{SC}$ and Fermi energy $\varepsilon_F$. Immediately save only the density and Fermi energy to disk and drop the wavefunction-heavy objects from memory.
 3. **Chunked eigenvalue extraction for DOS** — iterate over each supercell k-point (or small groups) and call `compute_bands(..., ρ=ρ_{SC})` to compute eigenvalues at that k-point. Collect eigenvalues only (no persistent ψ storage). Use DFTK smearing to compute a DOS curve.
 4. **Chunked band-path computation** — build a path in the *primitive* BZ (e.g. L → Γ → X → K → Γ), map these primitive path k-points to the supercell reciprocal coordinates, and compute bands for those k-points in small chunks. For each supercell band at each supercell k-point, compute an **unfolding spectral weight** onto primitive k-points using the supercell plane-wave coefficients.
 5. **Plot** — scatter unfolded bands (energy vs primitive-path coordinate) where color (and/or marker area) encodes the spectral weight; plot the DOS beside it.
@@ -37,7 +37,7 @@ This section translates the implementation logic into compact mathematical state
 Let the **primitive direct lattice** be given by the 3×3 matrix of column vectors (a^{(p)} = [\mathbf{a}_1^{(p)},\mathbf{a}_2^{(p)},\mathbf{a}_3^{(p)}]). The corresponding **primitive reciprocal lattice** is
 
 $$
-\bigr{\mathbf{b}*i^{(p)}\bigl}*{i=1}^3, \quad \text{with}\quad B^{(p)} = 2\pi, (a^{(p)})^{-T},
+\bigl{\mathbf{b}*i^{(p)}\bigr}*{i=1}^3, \quad \text{with}\quad B^{(p)} = 2\pi, (a^{(p)})^{-T},
 $$
 
 so that $\mathbf{b}_i^{(p)}\cdot\mathbf{a}*j^{(p)} = 2\pi,\delta*{ij}$.
