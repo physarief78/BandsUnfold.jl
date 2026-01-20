@@ -105,13 +105,13 @@ $$
 The density of states unfolded onto the primitive BZ or just the **total DOS** can be computed by smearing eigenvalues. Let (g_\sigma(E)) be a smearing kernel (e.g., Gaussian) with width (\sigma). The DOS per unit energy (states/eV) is computed as
 
 $$
-\mathrm{DOS}(E) = \frac{1}{N_{k}} \sum_{\mathbf{K},n} g_\sigma\bigl(E - E_{n\mathbf{K}}\bigr)
+\mathrm{DOS}(E) = \frac{1}{N_{k}} \sum_{\mathbf{K} n} g_\sigma\bigl(E - E_{n\mathbf{K}}\bigr)
 $$
 
 where the code uses DFTK's `smearing` function and samples all supercell k-points. If one wants an *unfolded* DOS resolved per primitive k-point, insert the weight:
 
 $$
-\mathrm{DOS}*{\text{unfolded}}(\mathbf{k},E) = \frac{1}{N*{K}}\sum_{\mathbf{K},n} W_{n\mathbf{K}}(\mathbf{k}),g_\sigma\bigl(E-E_{n\mathbf{K}}\bigr).
+\mathrm{DOS}*{\text{unfolded}}(\mathbf{k},E) = \frac{1}{N*{K}}\sum_{\mathbf{K},n} W_{n\mathbf{K}}(\mathbf{k}) g_\sigma\bigl(E-E_{n\mathbf{K}}\bigr).
 $$
 
 In the example code the DOS plotted on the side is the total DOS (summed over supercell k-points) and is converted from Hartree energies to electronvolts using
