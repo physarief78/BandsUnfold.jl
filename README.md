@@ -37,10 +37,10 @@ This section translates the implementation logic into compact mathematical state
 Let the **primitive direct lattice** be given by the 3×3 matrix of column vectors $a^{(p)} = [\mathbf{a}_1^{(p)} \mathbf{a}_2^{(p)},\mathbf{a}_3^{(p)}]$. The corresponding **primitive reciprocal lattice** is
 
 $$
-\left[\mathbf{b}*i^{(p)}\right]*{i=1}^3 \quad \text{with}\quad B^{(p)} = 2\pi (a^{(p)})^{-T},
+\bigl\{\mathbf{b}*i^{(p)} \bigr\}_{i=1}^3 \quad \text{with}\quad B^{(p)} = 2\pi (a^{(p)})^{-T},
 $$
 
-so that $\mathbf{b}_i^{(p)} \cdot \mathbf{a}_j^{(p)}=2 \pi \delta_{ij}$.
+so that $$ \mathbf{b}_i^{(p)} \cdot \mathbf{a}_j^{(p)}=2 \pi \delta_{ij} $$.
 
 For the supercell (constructed by integer multiples along direct axes), the supercell direct lattice matrix is (a^{(s)}) and its reciprocal lattice is
 
