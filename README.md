@@ -106,7 +106,7 @@ $$
 
 ### 2.5 Unfolded DOS
 
-The density of states unfolded onto the primitive BZ or just the **total DOS** can be computed by smearing eigenvalues. Let (g_\sigma(E)) be a smearing kernel (e.g., Gaussian) with width (\sigma). The DOS per unit energy (states/eV) is computed as
+The density of states unfolded onto the primitive BZ or just the **total DOS** can be computed by smearing eigenvalues. Let $g_\sigma(E)$ be a smearing kernel (e.g., Gaussian) with width $\sigma$. The DOS per unit energy (states/eV) is computed as
 
 $$
 \mathrm{DOS}(E) = \frac{1}{N_{k}} \sum_{\mathbf{K} n} g_\sigma\bigl(E - E_{n\mathbf{K}}\bigr)
@@ -126,7 +126,7 @@ $$
 
 ### 2.6 Units and conversions
 
-* DFTK returns energies in Hartree (Ha). The code uses `E_eV = (E_Ha - ε_F) * 27.2114` to shift by the Fermi energy and express energies relative to (E_F) in eV.
+* DFTK returns energies in Hartree (Ha). The code uses `E_eV = (E_Ha - ε_F) * 27.2114` to shift by the Fermi energy and express energies relative to $E_F$ in eV.
 * Reciprocal transformations use the `reciprocal_lattice` from `basis.model` (DFTK).
 
 ---
