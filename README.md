@@ -10,13 +10,13 @@ This README documents a low-memory, chunked pipeline to perform a supercell self
 
 Included example results:
 
-* ![pristine 2×2×2 supercell unfolded bands + DOS](src_code/Si_examples/results/Si_Supercell_Unfolded.png)
-* ![P-type supercell unfolded bands + DOS](src_code/Si_examples/results/Si_Supercell_NType_Unfolded.png)
-* ![N-type supercell unfolded bands + DOS](src_code/Si_examples/results/Si_Supercell_Unfolded.png)
+* ![pristine 2×2×2 supercell unfolded bands + DOS](src_code/Si_exapmples/results/Si_Supercell_Unfolded.png)
+* ![P-type supercell unfolded bands + DOS](src_code/Si_exapmples/results/Si_Supercell_NType_Unfolded.png)
+* ![N-type supercell unfolded bands + DOS](src_code/Si_exapmples/results/Si_Supercell_Unfolded.png)
 
-* `src_code/Si_examples/results/Si_Supercell_NType_Unfolded.png` — N-type supercell unfolded bands + DOS
-* `src_code/Si_examples/results/Si_Supercell_PType_Unfolded.png` — P-type supercell unfolded bands + DOS
-* `src_code/Si_examples/results/Si_Supercell_Unfolded.png` — pristine 2×2×2 supercell unfolded bands + DOS
+* `src_code/Si_exapmples/results/Si_Supercell_NType_Unfolded.png` — N-type supercell unfolded bands + DOS
+* `src_code/Si_exapmples/results/Si_Supercell_PType_Unfolded.png` — P-type supercell unfolded bands + DOS
+* `src_code/Si_exapmples/results/Si_Supercell_Unfolded.png` — pristine 2×2×2 supercell unfolded bands + DOS
 
 ---
 
