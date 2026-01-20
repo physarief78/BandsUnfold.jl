@@ -34,13 +34,13 @@ This section translates the implementation logic into compact mathematical state
 
 ### 2.1 Lattices and reciprocal lattices
 
-Let the **primitive direct lattice** be given by the 3×3 matrix of column vectors $a^{(p)} = [\mathbf{a}_1^{(p)},\mathbf{a}_2^{(p)},\mathbf{a}_3^{(p)}]$. The corresponding **primitive reciprocal lattice** is
+Let the **primitive direct lattice** be given by the 3×3 matrix of column vectors $a^{(p)} = [\mathbf{a}_1^{(p)} \mathbf{a}_2^{(p)},\mathbf{a}_3^{(p)}]$. The corresponding **primitive reciprocal lattice** is
 
 $$
-\left[\mathbf{b}*i^{(p)}\right]*{i=1}^3, \quad \text{with}\quad B^{(p)} = 2\pi, (a^{(p)})^{-T},
+\left[\mathbf{b}*i^{(p)}\right]*{i=1}^3 \quad \text{with}\quad B^{(p)} = 2\pi (a^{(p)})^{-T},
 $$
 
-so that $\mathbf{b}_i^{(p)}\cdot\mathbf{a}_j^{(p)}=2\pi,\delta_{ij}$.
+so that $\mathbf{b}_i^{(p)} \cdot \mathbf{a}_j^{(p)}=2 \pi \delta_{ij}$.
 
 For the supercell (constructed by integer multiples along direct axes), the supercell direct lattice matrix is (a^{(s)}) and its reciprocal lattice is
 
@@ -55,10 +55,10 @@ The coordinates used in DFTK are consistent with these definitions.
 For a supercell calculation at supercell Bloch vector $\mathbf{K}$ the single-particle eigenstate (band index (n)) is expressed in plane waves as
 
 $$
-\Psi_{n\mathbf{K}}^{(s)}(\mathbf{r}) = \frac{1}{\sqrt{\Omega_s}}\sum_{\mathbf{G}^{(s)}} C_{n,\mathbf{K}}(\mathbf{G}^{(s)}),e^{i(\mathbf{K}+\mathbf{G}^{(s)})\cdot\mathbf{r}},
+\Psi_{n\mathbf{K}}^{(s)}(\mathbf{r}) = \frac{1}{\sqrt{\Omega_s}}\sum_{\mathbf{G}^{(s)}} C_{n \mathbf{K}}(\mathbf{G}^{(s)}) e^{i(\mathbf{K}+\mathbf{G}^{(s)})\cdot\mathbf{r}},
 $$
 
-where $\mathbf{G}^{(s)}$ are reciprocal lattice vectors of the supercell, $C_{n,\mathbf{K}}(\mathbf{G}^{(s)})$ are complex plane-wave coefficients returned by DFTK, and $\Omega_s$ is the supercell volume.
+where $\mathbf{G}^{(s)}$ are reciprocal lattice vectors of the supercell, $C_{n \mathbf{K}}(\mathbf{G}^{(s)})$ are complex plane-wave coefficients returned by DFTK, and $\Omega_s$ is the supercell volume.
 
 ### 2.3 Primitive k mapping (unfolding condition)
 
@@ -73,7 +73,7 @@ then that plane-wave component of the supercell eigenstate maps onto the primiti
 In coordinates used by the code we compute for each supercell G-vector a *difference vector* in Cartesian form
 
 $$
-\mathbf{q} = \mathbf{K}_{\text{cart}} + B^{(s)},\mathbf{G}^{(s)},
+\mathbf{q} = \mathbf{K}_{\text{cart}} + B^{(s)} \mathbf{G}^{(s)},
 $$
 
 and compare it against the primitive target $\mathbf{k}_{\text{cart}}$. The condition is that
@@ -89,7 +89,7 @@ should be an integer triplet (within a small numerical tolerance). Code checks `
 When a plane-wave component labeled by $\mathbf{G}^{(s)}$ satisfies the mapping condition to primitive $\mathbf{k}$, that component contributes its squared amplitude to the spectral weight of primitive $\mathbf{k}$. The **spectral weight** for band $n$ at supercell k-point $\mathbf{K}$ onto primitive k-point $\mathbf{k}$ is
 
 $$
-W_{n\mathbf{K}}(\mathbf{k}) = \sum_{\mathbf{G}^{(s)}:\ \mathbf{K}+\mathbf{G}^{(s)}\equiv\mathbf{k}, (\text{mod } B^{(p)})} \bigl|C_{n,\mathbf{K}}(\mathbf{G}^{(s)})\bigr|^2.
+W_{n\mathbf{K}}(\mathbf{k}) = \sum_{\mathbf{G}^{(s)}:\ \mathbf{K}+\mathbf{G}^{(s)}\equiv\mathbf{k}  (\text{mod } B^{(p)})} \bigl|C_{n,\mathbf{K}}(\mathbf{G}^{(s)})\bigr|^2.
 $$
 
 The code builds the weights by summing `abs2(coeffs[iG, ib])` for all matching G-vectors. After summing, a small cutoff (e.g., `weights > 0.01`) is applied to remove negligibly-weighted contributions in the plotted unfolded bands.
