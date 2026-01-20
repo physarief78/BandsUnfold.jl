@@ -19,7 +19,7 @@ Included example results (place these images in `figures/` in the repo):
 ## 1. DFTK Workflow (high level)
 
 1. **Build primitive and supercell models** — define lattice, atomic positions, pseudopotentials, create `model_DFT` for both primitive cell and supercell geometry.
-2. **SCF on supercell** — run `self_consistent_field` on the supercell to obtain the converged density (\rho_{SC}) and Fermi energy (\varepsilon_F). Immediately save only the density and Fermi energy to disk and drop the wavefunction-heavy objects from memory.
+2. **SCF on supercell** — run `self_consistent_field` on the supercell to obtain the converged density ($\rho_{SC}$) and Fermi energy ($\varepsilon_F$). Immediately save only the density and Fermi energy to disk and drop the wavefunction-heavy objects from memory.
 3. **Chunked eigenvalue extraction for DOS** — iterate over each supercell k-point (or small groups) and call `compute_bands(..., ρ=ρ_{SC})` to compute eigenvalues at that k-point. Collect eigenvalues only (no persistent ψ storage). Use DFTK smearing to compute a DOS curve.
 4. **Chunked band-path computation** — build a path in the *primitive* BZ (e.g. L → Γ → X → K → Γ), map these primitive path k-points to the supercell reciprocal coordinates, and compute bands for those k-points in small chunks. For each supercell band at each supercell k-point, compute an **unfolding spectral weight** onto primitive k-points using the supercell plane-wave coefficients.
 5. **Plot** — scatter unfolded bands (energy vs primitive-path coordinate) where color (and/or marker area) encodes the spectral weight; plot the DOS beside it.
@@ -37,10 +37,10 @@ This section translates the implementation logic into compact mathematical state
 Let the **primitive direct lattice** be given by the 3×3 matrix of column vectors (a^{(p)} = [\mathbf{a}_1^{(p)},\mathbf{a}_2^{(p)},\mathbf{a}_3^{(p)}]). The corresponding **primitive reciprocal lattice** is
 
 $$
-bigr{\mathbf{b}*i^{(p)}\bigr}*{i=1}^3, \quad \text{with}\quad B^{(p)} = 2\pi, (a^{(p)})^{-T},
+\bigr{\mathbf{b}*i^{(p)}\bigr}*{i=1}^3, \quad \text{with}\quad B^{(p)} = 2\pi, (a^{(p)})^{-T},
 $$
 
-so that (\mathbf{b}_i^{(p)}\cdot\mathbf{a}*j^{(p)} = 2\pi,\delta*{ij}).
+so that $\mathbf{b}_i^{(p)}\cdot\mathbf{a}*j^{(p)} = 2\pi,\delta*{ij}$.
 
 For the supercell (constructed by integer multiples along direct axes), the supercell direct lattice matrix is (a^{(s)}) and its reciprocal lattice is
 
@@ -52,23 +52,23 @@ The coordinates used in DFTK are consistent with these definitions.
 
 ### 2.2 Bloch wave expansion (plane-wave representation)
 
-For a supercell calculation at supercell Bloch vector (\mathbf{K}) the single-particle eigenstate (band index (n)) is expressed in plane waves as
+For a supercell calculation at supercell Bloch vector $\mathbf{K}$ the single-particle eigenstate (band index (n)) is expressed in plane waves as
 
 $$
 \Psi_{n\mathbf{K}}^{(s)}(\mathbf{r}) = \frac{1}{\sqrt{\Omega_s}}\sum_{\mathbf{G}^{(s)}} C_{n,\mathbf{K}}(\mathbf{G}^{(s)}),e^{i(\mathbf{K}+\mathbf{G}^{(s)})\cdot\mathbf{r}},
 $$
 
-where (\mathbf{G}^{(s)}) are reciprocal lattice vectors of the supercell, (C_{n,\mathbf{K}}(\mathbf{G}^{(s)})) are complex plane-wave coefficients returned by DFTK, and (\Omega_s) is the supercell volume.
+where $\mathbf{G}^{(s)}$ are reciprocal lattice vectors of the supercell, $C_{n,\mathbf{K}}(\mathbf{G}^{(s)})$ are complex plane-wave coefficients returned by DFTK, and $\Omega_s$ is the supercell volume.
 
 ### 2.3 Primitive k mapping (unfolding condition)
 
-We want to discover whether a supercell state (\Psi_{n\mathbf{K}}^{(s)}) contributes spectral weight to a particular **primitive** Bloch vector (\mathbf{k}) (a k-point on the primitive path). Because primitive and supercell reciprocal lattices are commensurate, any supercell plane wave label (\mathbf{K}+\mathbf{G}^{(s)}) may be expressed in the primitive reciprocal basis. If there exists a supercell reciprocal vector (\mathbf{G}^{(s)}) such that
+We want to discover whether a supercell state $\Psi_{n\mathbf{K}}^{(s)}$ contributes spectral weight to a particular **primitive** Bloch vector $\mathbf{k}$ (a k-point on the primitive path). Because primitive and supercell reciprocal lattices are commensurate, any supercell plane wave label (\mathbf{K}+\mathbf{G}^{(s)}) may be expressed in the primitive reciprocal basis. If there exists a supercell reciprocal vector $\mathbf{G}^{(s)}$ such that
 
 $$
 \mathbf{k} = \mathbf{K} + \mathbf{G}^{(s)} \quad(\text{mod } B^{(p)}),
 $$
 
-then that plane-wave component of the supercell eigenstate maps onto the primitive k-point (\mathbf{k}).
+then that plane-wave component of the supercell eigenstate maps onto the primitive k-point $\mathbf{k}$.
 
 In coordinates used by the code we compute for each supercell G-vector a *difference vector* in Cartesian form
 
@@ -76,7 +76,7 @@ $$
 \mathbf{q} = \mathbf{K}_{\text{cart}} + B^{(s)},\mathbf{G}^{(s)},
 $$
 
-and compare it against the primitive target (\mathbf{k}_{\text{cart}}). The condition is that
+and compare it against the primitive target $\mathbf{k}_{\text{cart}}$. The condition is that
 
 $$
 \Delta = (a^{(p)})^{T}(\mathbf{q} - \mathbf{k}_{\text{cart}}) / (2\pi)
@@ -86,7 +86,7 @@ should be an integer triplet (within a small numerical tolerance). Code checks `
 
 ### 2.4 Spectral weight (unfolding weight)
 
-When a plane-wave component labeled by (\mathbf{G}^{(s)}) satisfies the mapping condition to primitive (\mathbf{k}), that component contributes its squared amplitude to the spectral weight of primitive (\mathbf{k}). The **spectral weight** for band (n) at supercell k-point (\mathbf{K}) onto primitive k-point (\mathbf{k}) is
+When a plane-wave component labeled by $\mathbf{G}^{(s)}$ satisfies the mapping condition to primitive $\mathbf{k}$, that component contributes its squared amplitude to the spectral weight of primitive $\mathbf{k}$. The **spectral weight** for band $n$ at supercell k-point $\mathbf{K}$ onto primitive k-point $\mathbf{k}$ is
 
 $$
 W_{n\mathbf{K}}(\mathbf{k}) = \sum_{\mathbf{G}^{(s)}:\ \mathbf{K}+\mathbf{G}^{(s)}\equiv\mathbf{k}, (\text{mod } B^{(p)})} \bigl|C_{n,\mathbf{K}}(\mathbf{G}^{(s)})\bigr|^2.
@@ -94,7 +94,7 @@ $$
 
 The code builds the weights by summing `abs2(coeffs[iG, ib])` for all matching G-vectors. After summing, a small cutoff (e.g., `weights > 0.01`) is applied to remove negligibly-weighted contributions in the plotted unfolded bands.
 
-The weights satisfy a normalization property across primitive k-points (for a complete decomposition), i.e. the sum of the weights across all primitive k-points for a given supercell (n,\mathbf{K}) equals the band occupancy (approximately 1 for a single-particle normalized state, modulo numerical issues and truncation):
+The weights satisfy a normalization property across primitive k-points (for a complete decomposition), i.e. the sum of the weights across all primitive k-points for a given supercell $n,\mathbf{K}$ equals the band occupancy (approximately 1 for a single-particle normalized state, modulo numerical issues and truncation):
 
 $$
 \sum_{\mathbf{k}} W_{n\mathbf{K}}(\mathbf{k}) \approx 1.
