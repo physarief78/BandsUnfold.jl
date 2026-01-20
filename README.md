@@ -1,4 +1,4 @@
-# Unfolding Supercell Bands & DOS (DFTK.jl)
+# Unfolding Supercell Bands & DOS Calculation Technique for DFTK.jl
 
 **Repository:** Unfolding technique implemented with [DFTK.jl](https://github.com/JuliaMolSim/DFTK.jl))
 
