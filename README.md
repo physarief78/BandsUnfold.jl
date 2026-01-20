@@ -8,7 +8,7 @@
 
 This README documents a low-memory, chunked pipeline to perform a supercell self-consistent-field (SCF) calculation with DFTK, compute chunked eigenvalues for DOS, compute band structure along a primitive-cell path using the *supercell* wavefunctions, and *unfold* the supercell bands onto the primitive Brillouin zone (BZ). The implementation is intentionally memory-conservative (waves and large arrays are quickly dropped and garbage-collected) and chunked so it runs under limited RAM budgets.
 
-Included example results (place these images in `figures/` in the repo):
+Included example results:
 
 * `src_code/results/Si_Supercell_NType_Unfolded.png` — N-type supercell unfolded bands + DOS
 * `src_code/results/Si_Supercell_PType_Unfolded.png` — P-type supercell unfolded bands + DOS
