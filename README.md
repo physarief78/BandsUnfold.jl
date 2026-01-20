@@ -40,7 +40,7 @@ $$
 \bigl[\mathbf{b}*i^{(p)}\\bigr]_{i=1}^3 \quad \text{with}\quad B^{(p)} = 2\pi (a^{(p)})^{-T},
 $$
 
-so that $\mathbf{b}_i^{(p)} \cdot \mathbf{a}_j^{(p)}=2 \pi \delta_{ij}$.
+$\mathbf{a} \cdot \mathbf{b}$
 
 For the supercell (constructed by integer multiples along direct axes), the supercell direct lattice matrix is $a^{(s)}$ and its reciprocal lattice is
 
