@@ -66,7 +66,7 @@ where $\mathbf{G}^{(s)}$ are reciprocal lattice vectors of the supercell, $C_{n 
 
 ### 2.3 Primitive k mapping (unfolding condition)
 
-We want to discover whether a supercell state $\Psi_{n\mathbf{K}}^{(s)}$ contributes spectral weight to a particular **primitive** Bloch vector $\mathbf{k}$ (a k-point on the primitive path). Because primitive and supercell reciprocal lattices are commensurate, any supercell plane wave label (\mathbf{K}+\mathbf{G}^{(s)}) may be expressed in the primitive reciprocal basis. If there exists a supercell reciprocal vector $\mathbf{G}^{(s)}$ such that
+We want to discover whether a supercell state $\Psi_{n\mathbf{K}}^{(s)}$ contributes spectral weight to a particular **primitive** Bloch vector $\mathbf{k}$ (a k-point on the primitive path). Because primitive and supercell reciprocal lattices are commensurate, any supercell plane wave label $\mathbf{K}+\mathbf{G}^{(s)}$ may be expressed in the primitive reciprocal basis. If there exists a supercell reciprocal vector $\mathbf{G}^{(s)}$ such that
 
 $$
 \mathbf{k} = \mathbf{K} + \mathbf{G}^{(s)} \quad(\text{mod } B^{(p)}),
